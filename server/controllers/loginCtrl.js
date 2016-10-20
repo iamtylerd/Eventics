@@ -1,9 +1,56 @@
-const passport = require('passport');
-const InstagramStrategy = require('passport-instagram');
+const bcrypt = require('bcrypt');
+const User = require('../models/user');
 
-module.exports.create = passport.authenticate('instagram', { failureRedirect: '/login' }),
-  (req, res) => {
-    // Successful authentication, redirect home.
-    console.log(res)
-    res.redirect('/');
+
+module.exports.get = (req, res, err) => {
+	User.findOne({ email: req.body.email })
+    .then(user => {
+      if (user) {
+        return new Promise((resolve, reject) => {
+          bcrypt.compare(req.body.password, user.password, (err, matches) => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve(matches)
+            }
+          })
+        })
+      } else {
+        console.log("Does not exist")
+      }
+    })
+    .then((matches) => {
+      if (matches) {
+        req.session.email = req.body.email
+        res.redirect('/')
+      } else {
+        console.log("Passwords do not match")
+      }
+    })
+    .catch(err)
+}
+
+module.exports.create = (req, res, err) => {
+	console.log("register", req)
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (user) {
+          res.render('register', { msg: 'Email is already registered' })
+        } else {
+        	// Create a new promise bcrypt does not support native promises
+          return new Promise((resolve, reject) => {
+            bcrypt.hash(req.body.password, 15, (err, hash) => {
+              if (err) {
+                reject(err)
+              } else {
+              	// Async fires and returns the hashed password
+                resolve(hash)
+              }
+            })
+          })
+        }
+      })
+      .then(hash => User.create({ email: req.body.email, password: hash, userName: req.body.username }))
+      .then(() => res.redirect('/login'), { msg: 'User created' })
+      .catch(err)
 }

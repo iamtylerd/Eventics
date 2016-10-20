@@ -16,7 +16,12 @@ const app = angular.module('app', ['ionic'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -25,6 +30,11 @@ const app = angular.module('app', ['ionic'])
   $stateProvider
   .state('index',{
       url:'/',
+      templateUrl: 'templates/login.html',
+      controller: 'LoginCtrl'
+  })
+  .state('fail',{
+      url:'/404',
       templateUrl: 'templates/login.html',
       controller: 'LoginCtrl'
   })

@@ -2,7 +2,8 @@
 
 const { Router } = require('express')
 const router = Router ()
-// const Create = require('../models/newTodo')
+const User = require('../models/user')
+
 
 router.use(require('./loginRoute'))
 
