@@ -23,25 +23,11 @@ const app = angular.module('app', ['ionic'])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
-
-  // setup an abstract state for the tabs directive
-    .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  // Each tab has its own nav history stack:
-  .state('tab.login', {
-    url: '/',
-    views: {
+  .state('index',{
+      url:'/',
       templateUrl: 'templates/login.html',
       controller: 'LoginCtrl'
-    }
-  });
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab.login');
+  })
+  $urlRouterProvider.otherwise('/');
 
 });
