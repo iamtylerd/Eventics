@@ -3,6 +3,7 @@ const User = require('../models/user');
 
 
 module.exports.get = (req, res, err) => {
+  let resolvedUser = {};
 	User.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
@@ -11,6 +12,8 @@ module.exports.get = (req, res, err) => {
             if (err) {
               reject(err)
             } else {
+              resolvedUser = user
+              console.log(user)
               resolve(matches)
             }
           })
@@ -22,7 +25,8 @@ module.exports.get = (req, res, err) => {
     .then((matches) => {
       if (matches) {
         req.session.email = req.body.email
-        res.redirect('/')
+        console.log()
+        res.json(resolvedUser)
       } else {
         console.log("Passwords do not match")
       }
@@ -35,7 +39,7 @@ module.exports.create = (req, res, err) => {
     User.findOne({ email: req.body.email })
       .then(user => {
         if (user) {
-          res.render('register', { msg: 'Email is already registered' })
+          res.send('Email is already registered')
         } else {
         	// Create a new promise bcrypt does not support native promises
           return new Promise((resolve, reject) => {
@@ -51,6 +55,6 @@ module.exports.create = (req, res, err) => {
         }
       })
       .then(hash => User.create({ email: req.body.email, password: hash, userName: req.body.username }))
-      .then(() => res.redirect('/login'), { msg: 'User created' })
+      .then((obj) => res.send(obj))
       .catch(err)
 }

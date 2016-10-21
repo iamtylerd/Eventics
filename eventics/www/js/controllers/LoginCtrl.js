@@ -1,7 +1,8 @@
 'use strict';
-app.controller('LoginCtrl', function($scope, $http) {
+app.controller('LoginCtrl', function($scope, $http, $location) {
 
-let URL = process.env.HOSTED_URL || 'http://localhost:3000'
+let URL = 'http://localhost:3000';
+
 
 $scope.loginObj = {
 	username: "",
@@ -16,14 +17,27 @@ $scope.registerObj = {
 $scope.createUser = () => {
 	$http
 		.post(`${URL}/api/reigster`, $scope.registerObj)
-		.then((obj) => console.log(obj))
+		.then((obj) => $location.url('/home'))
 
 }
 
 $scope.login = () => {
-	console.log()
 	$http
-		.get(`${URL}/api/login`)
-		.then(console.log("Done"))
+// ({
+// 		method: 'POST',
+// 		url: `${URL}/api/login`,
+// 		data: $scope.loginObj,
+// 		headers: {
+// 			'Origin': `${URL}`,
+// 			'Access-Control-Request-Method': 'POST',
+// 			'Access-Control-Request-Headers': 'X-Custom-Header'
+// 		}
+// 	})
+		.post(`${URL}/api/login`, $scope.loginObj)
+		.then((obj) => {
+			$location.url('/home')
+			console.log(obj)
+		})
+// }
 }
 })

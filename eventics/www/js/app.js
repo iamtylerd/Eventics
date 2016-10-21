@@ -1,4 +1,4 @@
-const app = angular.module('app', ['ionic'])
+const app = angular.module('app', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -32,6 +32,11 @@ const app = angular.module('app', ['ionic'])
       url:'/',
       templateUrl: 'templates/login.html',
       controller: 'LoginCtrl'
+  })
+  .state('home',{
+      url:'/home',
+      templateUrl: 'templates/home.html',
+      controller: 'HomeCtrl'
   })
   .state('fail',{
       url:'/404',
