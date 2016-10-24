@@ -1,5 +1,4 @@
-'use strict';
-app.controller('LoginCtrl', function($scope, $http, $location) {
+app.controller('LoginCtrl', function($scope, $http, $location, hostedServer) {
 
 
 $scope.loginObj = {
@@ -14,14 +13,14 @@ $scope.registerObj = {
 
 $scope.createUser = function () {
 	$http
-		.post(`/api/reigster`, $scope.registerObj)
+		.post(hostedServer + '/register', $scope.registerObj)
 		.then(function () {$location.url('/home')})
 
 }
 
 $scope.login = function () {
 	$http
-		.post(`/api/login`, $scope.loginObj)
+		.post(hostedServer + '/login', $scope.loginObj)
 		.then(function (obj) {
 			$location.url('/home')
 			console.log(obj)

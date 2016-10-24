@@ -1,4 +1,4 @@
-const app = angular.module('app', ['ionic', 'ngCordova'])
+var app = angular.module('app', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -15,6 +15,8 @@ const app = angular.module('app', ['ionic', 'ngCordova'])
     }
   });
 })
+
+app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
