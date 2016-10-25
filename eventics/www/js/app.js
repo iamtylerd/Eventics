@@ -2,6 +2,7 @@ var app = angular.module('app', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -18,7 +19,9 @@ var app = angular.module('app', ['ionic', 'ngCordova'])
 
 app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
 
+
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
 
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
   $httpProvider.defaults.headers.common = {};

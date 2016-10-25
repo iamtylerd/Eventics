@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $http, $location, hostedServer) {
+app.controller('LoginCtrl', function($scope, $http, $location, hostedServer, userFactory) {
 
 
 $scope.loginObj = {
@@ -22,6 +22,7 @@ $scope.login = function () {
 	$http
 		.post(hostedServer + '/login', $scope.loginObj)
 		.then(function (obj) {
+			userFactory.set(obj.data)
 			$location.url('/home')
 			console.log(obj)
 		})

@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', function($scope, $http, $rootScope, $location, $cordovaCamera, hostedServer) {
+app.controller('HomeCtrl', function($scope, $http, $rootScope, $location, $cordovaCamera, hostedServer, userFactory) {
 
 
 
@@ -14,13 +14,13 @@ $rootScope.logout = function () {
 
 
 	var options = {
-	  quality: 50,
+	  quality: 75,
 	  destinationType: Camera.DestinationType.DATA_URL,
 	  sourceType: Camera.PictureSourceType.CAMERA,
 	  allowEdit: true,
 	  encodingType: Camera.EncodingType.JPEG,
-	  targetWidth: 100,
-	  targetHeight: 100,
+	  targetWidth: 500,
+	  targetHeight: 500,
 	  popoverOptions: CameraPopoverOptions,
 	  saveToPhotoAlbum: true,
 	correctOrientation:true
@@ -29,10 +29,17 @@ $rootScope.logout = function () {
   $scope.takePhoto = function () {
   	console.log("camera")
   	$cordovaCamera.getPicture(options).then(function(imageData) {
-    var image = document.getElementById('myImage');
-    image.src = "data:image/jpeg;base64," + imageData;
+
+  		var user = userFactory.get()
+    	$http
+    		.post(hostedServer + '/user/photo/' + user.id, { image: imageData })
+    		.then(function (obj) {
+    			console.log(obj)
+    		})
+
   }, function(err) {
     // error
+    console.log(err)
   });
 }
 
