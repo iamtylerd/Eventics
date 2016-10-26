@@ -48,6 +48,11 @@ app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
       templateUrl: 'templates/login.html',
       controller: 'LoginCtrl'
   })
+  .state('event',{
+      url:'/event/:id',
+      templateUrl: 'templates/event.html',
+      controller: 'EventCtrl'
+  })
   $urlRouterProvider.otherwise('/');
 
 });
