@@ -11,77 +11,56 @@ $rootScope.logout = function () {
 		})
 }
 
-	// var options = {
-	//   quality: 75,
-	//   destinationType: Camera.DestinationType.DATA_URL,
-	//   sourceType: Camera.PictureSourceType.CAMERA,
-	//   allowEdit: true,
-	//   encodingType: Camera.EncodingType.JPEG,
-	//   targetWidth: 500,
-	//   targetHeight: 500,
-	//   popoverOptions: CameraPopoverOptions,
-	//   saveToPhotoAlbum: true,
-	// correctOrientation:true
-	// };
+	var options = {
+	  quality: 75,
+	  destinationType: Camera.DestinationType.DATA_URL,
+	  sourceType: Camera.PictureSourceType.CAMERA,
+	  allowEdit: true,
+	  encodingType: Camera.EncodingType.JPEG,
+	  targetWidth: 500,
+	  targetHeight: 500,
+	  popoverOptions: CameraPopoverOptions,
+	  saveToPhotoAlbum: true,
+	correctOrientation:true
+	};
+
+$scope.takePhoto = function () {
+  	console.log("camera")
+  	$cordovaCamera.getPicture(options).then(function(imageData) {
+
+  		var user = userFactory.get()
+    	$http
+    		.post(hostedServer + '/user/photo/' + user.id, { image: imageData })
+    		.then(function (obj) {
+    			console.log(obj)
+    		})
+
+  }, function(err) {
+    // error
+    console.log(err)
+  });
+}
 
 
-  $scope.takePhoto = function () {
-	  	var photo = {};
-	  	$cordovaCamera.getPicture({}).then(function(imageData) {
-
-	  		resolveLocalFileSystemURL(imageData, function(fe) {
-	  		// 	console.log("fe", fe)
-	  			fe.file(function (file) {
-	  				var f = new FileReader();
-	  				f.readAsArrayBuffer(file);
-	  				f.onloadend = function () {
-	  					var x = new XMLHttpRequest();
-	  					x.open('POST', 'http://10.10.10.198:3000/test');
-	  					x.addEventListener('load', console.log);
-	  					x.send(f.result);
-	  					// $http
-					   //   	.get('http://10.10.10.198:3000/ping')
-					   //   	.then(console.log)
-					   //   	.then(function () { $http.post('http://10.10.10.198:3000/test', f.result, {
-					   //   			headers: { 'Content-Type': undefined } }
-					   //   		)})
-					   //   	.then(console.log)
-					   //   	.catch(console.error)
-					   //   }
-	  				}
-
-	  			// 	var options = {
-					 //    fileKey: "photo",
-					 //    fileName: "image.png",
-					 //    chunkedMode: false,
-					 //    mimeType: "image/png",
-					 //    httpMethod: "POST"
-						// };
-	  			// 	// console.log(file)
-			  		// var user = userFactory.get()
-			  	// 	console.log(hostedServer + '/user/photo/' + user.id)
-			  	// 	$cordovaFileTransfer.upload(hostedServer + '/user/photo/' + user.id, file.localURL, options).then(function(result) {
-	     //        console.log("SUCCESS: " + JSON.stringify(result.response));
-	     //    }, function(err) {
-	     //        console.log("ERROR: " + JSON.stringify(err));
-	     //    }, function (progress) {
-	     //        // constant progress updates
-	     //    });
-	     // debugger
-
-
-
-	  		})
-
-
-
-		    		// // .post(hostedServer + '/user/photo/' + user.id, file)
-		    		// .then(function (obj) {
-		    		// 	console.log(obj)
-		    		// })  		})
-
-  	})
-	})
-	}
+//Sends whole file
+ //  $scope.takePhoto = function () {
+	//   	var photo = {};
+	//   	$cordovaCamera.getPicture({}).then(function(imageData) {
+	//   		resolveLocalFileSystemURL(imageData, function(fe) {
+	//   			fe.file(function (file) {
+	//   				var f = new FileReader();
+	//   				f.readAsArrayBuffer(file);
+	//   				f.onloadend = function () {
+	//   					var x = new XMLHttpRequest();
+	//   					var user = userFactory.get()
+	//   					x.open('POST', hostedServer + '/user/photo/' + user.id );
+	//   					x.addEventListener('load', console.log);
+	//   					//changed f.result to f
+	//   					x.send(f.result);
+	//   				}
+	//   		})
+ //  	})
+	// })
+	// }
 })
 
