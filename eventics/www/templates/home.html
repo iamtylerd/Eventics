@@ -7,7 +7,9 @@
   <ion-content class="padding"  on-swipe-left="takePhoto()">
   	<div class="mainContainer">
     	<h1>HOME</h1>
- 				 <button ng-click="takePhoto()" class="button">Take a photo</button>
+				 <button class="button" ng-click="modal.show()">
+				 	Create Event
+        </button>
  				 <div>
  				 	<h3>Events</h3>
  				 	<div class="eventHolder" ng-repeat="event in events">
@@ -17,3 +19,4 @@
   	</div>
   </ion-content>
 </ion-view>
+

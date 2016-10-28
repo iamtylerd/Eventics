@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', function($scope, $http, $rootScope, $location, $cordovaCamera, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
+app.controller('HomeCtrl', function($ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
 
 eventFactory.getAllEvents()
 	.then(function (obj) {
@@ -18,35 +18,27 @@ $rootScope.logout = function () {
 		})
 }
 
-
-//Sends whole file
-  $scope.takePhoto = function () {
-	  	var photo = {};
-	  	$cordovaCamera.getPicture({}).then(function(imageData) {
-	  		resolveLocalFileSystemURL(imageData, function(fe) {
-	  			fe.file(function (file) {
-	  				var f = new FileReader();
-	  				f.readAsArrayBuffer(file);
-	  				f.onloadend = function () {
-	  					var x = new XMLHttpRequest();
-	  					var user = userFactory.get()
-	  					x.open('POST', hostedServer + '/user/photo/' + user.id );
-	  					x.addEventListener('load', function (e) {
-	  						// var events = JSON.parse(e.target.responseText)
-	  						// $scope.events = events
-	  						// $scope.$apply()
-	  					});
-	  					//changed f.result to f
-	  					x.send(f.result);
-	  				}
-	  		})
-  	})
-	})
-	}
-
 	$scope.viewEventPhotos = function (id) {
 		console.log("clicked events", id)
 		$location.url('/event/' + id)
 	}
-})
+
+
+  $ionicModal.fromTemplateUrl('./templates/eventModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.createEvent = function(newEvent) {
+    console.log(newEvent)
+    $http
+    	.post(hostedServer + '/event/new', newEvent)
+    	.then(function (msg) {
+    		console.log(msg)
+    	})
+    $scope.modal.hide();
+  };
+
+});
 
