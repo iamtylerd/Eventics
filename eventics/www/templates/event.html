@@ -1,0 +1,17 @@
+<ion-view view-title="Event">
+<ion-nav-buttons side="right">
+    <button id="logout" class="button button-light" ng-click="logout()">
+      Logout
+    </button>
+  </ion-nav-buttons>
+  <ion-content class="padding">
+  	<div class="mainContainer">
+  	 	 <button ng-click="takePhoto()" class="button">Take a photo</button>
+    	<h1>{{event.eventName}}</h1>
+    	<div class="photoGrid" ng-repeat="photo in photos">
+    		<img ng-src="{{photo.imageUrl}}">
+    		<h2>{{photo.imageName}}</h2>
+    	</div>
+  	</div>
+  </ion-content>
+</ion-view>

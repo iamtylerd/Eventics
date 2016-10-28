@@ -1,6 +1,12 @@
-app.controller('HomeCtrl', function($scope, $http, $rootScope, $location, $cordovaCamera, hostedServer, userFactory) {
+app.controller('HomeCtrl', function($ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
 
-
+eventFactory.getAllEvents()
+	.then(function (obj) {
+		console.log("test", obj.data.events[0])
+			$scope.events = obj.data.events
+	}).catch(function () {
+		console.log("failed")
+	})
 
 $rootScope.logout = function () {
 	console.log("Clicked")
@@ -12,38 +18,27 @@ $rootScope.logout = function () {
 		})
 }
 
+	$scope.viewEventPhotos = function (id) {
+		console.log("clicked events", id)
+		$location.url('/event/' + id)
+	}
 
-	var options = {
-	  quality: 75,
-	  destinationType: Camera.DestinationType.DATA_URL,
-	  sourceType: Camera.PictureSourceType.CAMERA,
-	  allowEdit: true,
-	  encodingType: Camera.EncodingType.JPEG,
-	  targetWidth: 500,
-	  targetHeight: 500,
-	  popoverOptions: CameraPopoverOptions,
-	  saveToPhotoAlbum: true,
-	correctOrientation:true
-	};
 
-  $scope.takePhoto = function () {
-  	console.log("camera")
-  	$cordovaCamera.getPicture(options).then(function(imageData) {
-
-  		var user = userFactory.get()
-    	$http
-    		.post(hostedServer + '/user/photo/' + user.id, { image: imageData })
-    		.then(function (obj) {
-    			console.log(obj)
-    		})
-
-  }, function(err) {
-    // error
-    console.log(err)
+  $ionicModal.fromTemplateUrl('./templates/eventModal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
   });
-}
 
+  $scope.createEvent = function(newEvent) {
+    console.log(newEvent)
+    $http
+    	.post(hostedServer + '/event/new', newEvent)
+    	.then(function (msg) {
+    		console.log(msg)
+    	})
+    $scope.modal.hide();
+  };
 
-})
-
+});
 
