@@ -5,10 +5,18 @@ var paramId = $stateParams.id;
 
 $scope.event = '';
 
+var options = {
+	quality: 75,
+	allowEdit: true,
+	targetWidth: 500,
+	targetHeight: 500,
+	correctOrientation:true
+	};
+
 //Sends whole file
 $scope.takePhoto = function () {
 	var photo = {};
-	$cordovaCamera.getPicture({}).then(function(imageData) {
+	$cordovaCamera.getPicture(options).then(function(imageData) {
 	  resolveLocalFileSystemURL(imageData, function(fe) {
 	  	fe.file(function (file) {
 				var f = new FileReader();
