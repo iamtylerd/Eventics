@@ -9814,3 +9814,8 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.singlePhoto {
+  max-width: 50%; }
+  .singlePhoto img {
+    max-width: 100%; }

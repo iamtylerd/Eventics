@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ionic', 'ngCordova'])
+var app = angular.module('app', ['ionic', 'ngCordova', 'ngStorage'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -36,12 +36,17 @@ app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
   .state('index',{
       url:'/',
       templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl',
+      // onEnter: function ($scope) {
+      //   if($scope.$storage.loggedIn === true) {
+      //     $state.go('home')
+      //   }
+      // }
   })
   .state('home',{
       url:'/home',
       templateUrl: 'templates/home.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
   })
   .state('fail',{
       url:'/404',
@@ -52,6 +57,11 @@ app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
       url:'/event/:id',
       templateUrl: 'templates/event.html',
       controller: 'EventCtrl'
+  })
+  .state('user', {
+      url:'/user/:id',
+      templateUrl: 'templates/user.html',
+      controller: 'UserCtrl'
   })
   $urlRouterProvider.otherwise('/');
 

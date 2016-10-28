@@ -4,7 +4,7 @@
       Logout
     </button>
   </ion-nav-buttons>
-  <ion-content class="padding"  on-swipe-left="takePhoto()">
+  <ion-content class="padding">
   	<div class="mainContainer">
     	<h1>HOME</h1>
 				 <button class="button" ng-click="modal.show()">
@@ -13,7 +13,7 @@
  				 <div>
  				 	<h3>Events</h3>
  				 	<div class="eventHolder" ng-repeat="event in events">
- 				 		<a ng-click="viewEventPhotos(event._id)"><h4>{{event.eventName}}</h4></a>
+ 				 		<h4 ng-click="viewEventPhotos(event._id)">{{event.eventName}}</h4>
  				 	</div>
  				 </div>
   	</div>

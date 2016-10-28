@@ -26,6 +26,9 @@ $scope.takePhoto = function () {
 					var user = userFactory.get()
 					x.open('POST', hostedServer + '/event/photo/' + user.id + '?' + paramId );
 					x.addEventListener('load', function (e) {
+					  var newPhoto = JSON.parse(e.target.responseText)
+					  $scope.photos.push(newPhoto)
+					  $scope.$apply()
 					});
 					//changed f.result to f
 					x.send(f.result);
@@ -44,4 +47,17 @@ eventFactory.getSingleEvent(paramId)
 		$scope.event = event
 	})
 
+$scope.getUserPhotos = function (id) {
+	$location.url('/user/' + id)
+}
 })
+
+
+
+
+
+
+
+
+
+

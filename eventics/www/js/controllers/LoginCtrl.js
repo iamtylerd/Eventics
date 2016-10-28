@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $http, $location, hostedServer, userFactory) {
+app.controller('LoginCtrl', function($scope, $http, $location, hostedServer, userFactory, $localStorage) {
 
 
 $scope.loginObj = {
@@ -10,6 +10,10 @@ $scope.registerObj = {
 	email: "",
 	password: ""
 }
+
+$scope.$storage = $localStorage;
+
+console.log($scope.$storage)
 
 $scope.createUser = function () {
 	$http
@@ -23,6 +27,7 @@ $scope.login = function () {
 		.post(hostedServer + '/login', $scope.loginObj)
 		.then(function (obj) {
 			userFactory.set(obj.data)
+			userFactory.checkLogin(true, $scope)
 			$location.url('/home')
 			console.log(obj)
 		})
