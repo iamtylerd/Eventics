@@ -16,7 +16,13 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'ngStorage'])
     }
   });
 })
-
+.run(($rootScope, $location, userFactory) => {
+    $rootScope.$on('$stateChangeStart', function (e, toState) {
+      if (toState.url !== '/login' && !userFactory.isLoggedIn()) {
+        $location.path('/login')
+      }
+    })
+  })
 app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
 
 
@@ -34,14 +40,9 @@ app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
   // Each state's controller can be found in controllers.js
   $stateProvider
   .state('index',{
-      url:'/',
+      url:'/login',
       templateUrl: 'templates/login.html',
       controller: 'LoginCtrl',
-      // onEnter: function ($scope) {
-      //   if($scope.$storage.loggedIn === true) {
-      //     $state.go('home')
-      //   }
-      // }
   })
   .state('home',{
       url:'/home',
@@ -63,6 +64,6 @@ app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
       templateUrl: 'templates/user.html',
       controller: 'UserCtrl'
   })
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/home');
 
 });

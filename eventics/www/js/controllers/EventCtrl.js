@@ -42,14 +42,34 @@ eventFactory.getSingleEvent(paramId)
 	.then(function (bothObj) {
 		var photos = bothObj.data.eventObj[0]
 		var event = bothObj.data.eventObj[1][0]
-		console.log('event', photos[0])
+		console.log('event', bothObj)
 		$scope.photos = photos
 		$scope.event = event
+		console.log("scopephotos", $scope.photos)
 	})
 
 $scope.getUserPhotos = function (id) {
 	$location.url('/user/' + id)
 }
+$scope.getMorePhotos = function (id) {
+	var eventObj = {
+		"id": id,
+		count: 10
+	}
+eventFactory.getMorePhotos(eventObj)
+	.then(function (newPhotos) {
+		var photos = newPhotos.data.eventObj[0]
+		photos.forEach(function (photo) {
+			$scope.photos.push(photo)
+		console.log($scope.photos)
+		})
+	})
+}
+
+
+
+
+
 })
 
 

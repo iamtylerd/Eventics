@@ -11,8 +11,17 @@ var photos = {};
 	}
 
 	this.getSingleEvent = function (id) {
+		var eventObj = {
+			"id": id,
+			"count": 0
+		}
 		return $http
-			.get(hostedServer + '/event/' + id)
+			.post(hostedServer + '/event/' + id, eventObj)
+	}
+
+	this.getMorePhotos = function (eventObj) {
+		return $http
+			.post(hostedServer + '/event/' + eventObj.id, eventObj)
 	}
 
 	// this.getUsers = function () {

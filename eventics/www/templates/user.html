@@ -6,12 +6,13 @@
   </ion-nav-buttons>
   <ion-content class="padding" on-swipe-left="takePhoto()">
   	<div class="mainContainer">
-  	 	<h1>{{user.userName}}</h1>
-      <div class="photoGrid col" ng-repeat="photo in photos">
-          <div class="singlePhoto col col-center">
-            <img ng-src="{{photo.imageUrl}}">
-          </div>
+      <div class="photoContainer row" ng-repeat="photo in photos">
+        <div class="photoGrid col">
+            <div class="singlePhoto col col-center">
+              <img ng-src="{{photo.imageUrl}}">
+            </div>
         </div>
+      </div>
   	</div>
   </ion-content>
 </ion-view>

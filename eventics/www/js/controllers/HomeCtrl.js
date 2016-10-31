@@ -1,8 +1,11 @@
-app.controller('HomeCtrl', function($localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
+app.controller('HomeCtrl', function($window, $localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
+
+if(!userFactory.isLoggedIn()) {
+	$location.url('/login')
+}
 
 eventFactory.getAllEvents()
 	.then(function (obj) {
-		console.log("test", obj.data.events[0])
 			$scope.events = obj.data.events
 	}).catch(function () {
 		console.log("failed")
@@ -10,12 +13,12 @@ eventFactory.getAllEvents()
 
 $rootScope.logout = function () {
 	console.log("Clicked")
+	$window.localStorage.setItem('loggedIn', false)
 	$http
 		.post(hostedServer + '/logout')
 		.then(function () {
-			userFactory.checkLogin(false, $scope)
 			console.log("Logout")
-			$location.url('/')
+			$location.url('/login')
 		})
 }
 

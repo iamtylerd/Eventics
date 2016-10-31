@@ -1,4 +1,5 @@
-app.controller('LoginCtrl', function($scope, $http, $location, hostedServer, userFactory, $localStorage) {
+app.controller('LoginCtrl', function($window, $scope, $http, $location, hostedServer, userFactory, $localStorage) {
+
 
 
 $scope.loginObj = {
@@ -27,7 +28,7 @@ $scope.login = function () {
 		.post(hostedServer + '/login', $scope.loginObj)
 		.then(function (obj) {
 			userFactory.set(obj.data)
-			userFactory.checkLogin(true, $scope)
+			$window.localStorage.setItem('loggedIn', true)
 			$location.url('/home')
 			console.log(obj)
 		})

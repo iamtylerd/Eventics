@@ -9,9 +9,8 @@ app.service('userFactory', function($window, $state, $localStorage, $http, hoste
 		user.id = obj._id
 	}
 
-	this.checkLogin = function () {
-
-		return window.localStorage.setItem("loggedIn", false);
+	this.isLoggedIn = function () {
+		return $window.localStorage.loggedIn === 'true'
 	}
 
 	this.getUserCollection = function (id) {
