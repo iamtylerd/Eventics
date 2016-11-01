@@ -18,7 +18,7 @@
     	<div class="photoContainer row responsive-md">
 	    	<div class="photoGrid col" ng-repeat="photo in photos | orderBy: '-date'">
 	    		<div class="singlePhoto col col-center">
-	    			<img ng-src="{{photo.imageUrl}}" ng-click="download(photo.imageUrl)">
+	    			<img ng-src="{{photo.imageUrl}}">
 	    			<h2 ng-click="getUserPhotos(photo.userId)">{{photo.userName}}</h2>
 	    		</div>
 	    	</div>

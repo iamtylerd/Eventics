@@ -24,7 +24,7 @@ $scope.takePhoto = function () {
 				f.onloadend = function () {
 					var x = new XMLHttpRequest();
 					var user = userFactory.get()
-					x.open('POST', hostedServer + '/event/photo/' + user.id + '?' + paramId );
+					x.open('POST', hostedServer + '/event/photo/new/' + user.id + '?' + paramId );
 					x.addEventListener('load', function (e) {
 					  var newPhoto = JSON.parse(e.target.responseText)
 					  $scope.photos.push(newPhoto)

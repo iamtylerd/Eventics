@@ -1,0 +1,45 @@
+.eventContainer {
+	padding-bottom: 4rem;
+}
+
+.photoContainer {
+	margin: 2rem 2rem 2rem 2rem;
+}
+
+.singlePhoto {
+	position: relative;
+	z-index: 1;
+	.hoverDiv {
+		display: none;
+	}
+	h5 {
+		display: inline;
+	}
+	a {
+		z-index: 1;
+		position: relative;
+		img {
+			max-width: 100%;
+		}
+	}
+}
+
+.singlePhoto:hover {
+	.hoverDiv {
+		position: absolute;
+		text-align: center;
+		display: block;
+		z-index: 999;
+		// height: 100%;
+			// width: 100%;
+		background-color: grey;
+		opacity: 0.5;
+
+	}
+}
+
+
+.userName {
+	display: inline;
+	font-size: 0.75rem;
+}

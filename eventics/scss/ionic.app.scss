@@ -29,7 +29,8 @@ $darkRed: #8E2800;
 
 // Ion Content
 .padding {
-	padding-bottom:50px !important;
+	padding-bottom: 150px !important;
+	margin-bottom: 50px !important;
 }
 
 
@@ -40,6 +41,7 @@ $darkRed: #8E2800;
 
 //Footer
 .fixedFooter {
+	margin-top: 20px;
 	position: absolute;
 	padding-left: 25%;
 	padding-right: 25%;

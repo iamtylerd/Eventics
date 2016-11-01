@@ -1,8 +1,5 @@
 app.controller('HomeCtrl', function($ionicFilterBar, $window, $localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
 
-if(!userFactory.isLoggedIn()) {
-	$location.url('/login')
-}
 
 eventFactory.getAllEvents()
 	.then(function (obj) {
@@ -50,8 +47,9 @@ $rootScope.logout = function () {
   $scope.createEvent = function(newEvent) {
     console.log(newEvent)
     $http
-    	.post(hostedServer + '/event/new', newEvent)
+    	.post(hostedServer + '/event/create/new', newEvent)
     	.then(function (msg) {
+    		console.log("after post", msg)
     		eventFactory.getAllEvents()
 					.then(function (obj) {
 						console.log(obj)

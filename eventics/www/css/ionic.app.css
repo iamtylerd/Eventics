@@ -9816,12 +9816,14 @@ a.button {
   transition-duration: 0s; }
 
 .padding {
-  padding-bottom: 50px !important; }
+  padding-bottom: 150px !important;
+  margin-bottom: 50px !important; }
 
 .navBar {
   background-color: #B64926 !important; }
 
 .fixedFooter {
+  margin-top: 20px;
   position: absolute;
   padding-left: 25%;
   padding-right: 25%;
