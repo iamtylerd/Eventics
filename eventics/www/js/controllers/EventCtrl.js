@@ -1,4 +1,4 @@
-app.controller('EventCtrl', function($scope, $http, $rootScope, $location, $cordovaCamera, hostedServer, userFactory, eventFactory, $stateParams) {
+app.controller('EventCtrl', function($scope, $http, $ionicLoading, $rootScope, $location, $cordovaCamera, hostedServer, userFactory, eventFactory, $stateParams, $state) {
 
 
 var paramId = $stateParams.id;
@@ -45,7 +45,6 @@ eventFactory.getSingleEvent(paramId)
 		console.log('event', bothObj)
 		$scope.photos = photos
 		$scope.event = event
-		console.log("scopephotos", $scope.photos)
 	})
 
 $scope.getUserPhotos = function (id) {
@@ -61,14 +60,28 @@ eventFactory.getMorePhotos(eventObj)
 		var photos = newPhotos.data.eventObj[0]
 		photos.forEach(function (photo) {
 			$scope.photos.push(photo)
-		console.log($scope.photos)
 		})
 	})
 }
 
+$scope.goHome = function () {
+	$state.go('home')
+}
 
-
-
+$scope.doRefresh = function () {
+	eventFactory.getSingleEvent(paramId)
+	.then(function (bothObj) {
+		var photos = bothObj.data.eventObj[0]
+		var event = bothObj.data.eventObj[1][0]
+		console.log('event', bothObj)
+		$scope.photos = photos
+		$scope.event = event
+		console.log("scopephotos", $scope.photos)
+	}).finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
+}
 
 })
 

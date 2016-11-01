@@ -7,6 +7,7 @@
   "dependencies": {
     "ngCordova": "^0.1.27-alpha",
     "firebase": "^3.5.2",
-    "ngstorage": "^0.3.11"
+    "ngstorage": "^0.3.11",
+    "Ionicons": "ionicons#^2.0.1"
   }
 }

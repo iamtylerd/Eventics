@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ionic', 'ngCordova', 'ngStorage'])
+var app = angular.module('app', ['ionic', 'ngCordova', 'ngStorage', 'jett.ionic.filter.bar'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

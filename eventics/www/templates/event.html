@@ -1,25 +1,36 @@
 <ion-view view-title="Event">
-<ion-nav-buttons side="right">
-    <button id="logout" class="button button-light" ng-click="logout()">
+	<ion-nav-buttons side="left">
+		<button class="button button-light ion-chevron-left button-outline" ng-click="goHome()">Home</button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+	 <button ng-click="takePhoto()" class="button button-outline button-light">Take a photo</button>
+    <button id="logout" class="button button-light button-outline" ng-click="logout()">
       Logout
     </button>
   </ion-nav-buttons>
   <ion-content class="padding" on-swipe-left="takePhoto()">
+  <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="doRefresh()">
+  </ion-refresher>
   	<div class="mainContainer">
-  	 	 <button ng-click="takePhoto()" class="button">Take a photo</button>
     	<h1>{{event.eventName}}</h1>
     	<div class="photoContainer row responsive-md">
 	    	<div class="photoGrid col" ng-repeat="photo in photos | orderBy: '-date'">
 	    		<div class="singlePhoto col col-center">
-	    			<img ng-src="{{photo.imageUrl}}">
+	    			<img ng-src="{{photo.imageUrl}}" ng-click="download(photo.imageUrl)">
 	    			<h2 ng-click="getUserPhotos(photo.userId)">{{photo.userName}}</h2>
 	    		</div>
 	    	</div>
     	</div>
     <div>
    	<button class="button" ng-click="getMorePhotos(event._id)">View More Photos</button>
-
     </div>
   	</div>
   </ion-content>
+  	<div class="bar fixedFooter">
+ 			 <i class="ion-ios-home-outline" ng-click="goHome()"></i>
+ 			 <i class="ion-ios-circle-filled"></i>
+ 			 <i class="ion-ios-camera-outline" ng-click="takePhoto()"></i>
+		</div>
 </ion-view>

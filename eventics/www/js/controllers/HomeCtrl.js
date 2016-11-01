@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', function($window, $localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
+app.controller('HomeCtrl', function($ionicFilterBar, $window, $localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
 
 if(!userFactory.isLoggedIn()) {
 	$location.url('/login')
@@ -7,9 +7,22 @@ if(!userFactory.isLoggedIn()) {
 eventFactory.getAllEvents()
 	.then(function (obj) {
 			$scope.events = obj.data.events
+			console.log($scope.events)
 	}).catch(function () {
 		console.log("failed")
 	})
+
+	$scope.showFilterBar = function () {
+      filterBarInstance = $ionicFilterBar.show({
+        items: $scope.events,
+        update: function (filteredItems, filterText) {
+          $scope.events = filteredItems;
+          if (filterText) {
+
+          }
+        }
+      });
+    };
 
 $rootScope.logout = function () {
 	console.log("Clicked")
@@ -49,6 +62,19 @@ $rootScope.logout = function () {
     	})
     $scope.modal.hide();
   };
+
+$scope.doRefresh = function () {
+	eventFactory.getAllEvents()
+		.then(function (obj) {
+			$scope.events = obj.data.events
+			console.log($scope.events)
+	}).catch(function () {
+		console.log("failed")
+	}).finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
+}
 
 });
 
