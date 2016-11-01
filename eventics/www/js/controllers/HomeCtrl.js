@@ -1,20 +1,34 @@
-app.controller('HomeCtrl', function($ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
+app.controller('HomeCtrl', function($ionicFilterBar, $window, $localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
+
 
 eventFactory.getAllEvents()
 	.then(function (obj) {
-		console.log("test", obj.data.events[0])
 			$scope.events = obj.data.events
+			console.log($scope.events)
 	}).catch(function () {
 		console.log("failed")
 	})
 
+	$scope.showFilterBar = function () {
+      filterBarInstance = $ionicFilterBar.show({
+        items: $scope.events,
+        update: function (filteredItems, filterText) {
+          $scope.events = filteredItems;
+          if (filterText) {
+
+          }
+        }
+      });
+    };
+
 $rootScope.logout = function () {
 	console.log("Clicked")
+	$window.localStorage.setItem('loggedIn', false)
 	$http
 		.post(hostedServer + '/logout')
 		.then(function () {
 			console.log("Logout")
-			$location.url('/')
+			$location.url('/login')
 		})
 }
 
@@ -33,12 +47,32 @@ $rootScope.logout = function () {
   $scope.createEvent = function(newEvent) {
     console.log(newEvent)
     $http
-    	.post(hostedServer + '/event/new', newEvent)
+    	.post(hostedServer + '/event/create/new', newEvent)
     	.then(function (msg) {
-    		console.log(msg)
+    		console.log("after post", msg)
+    		eventFactory.getAllEvents()
+					.then(function (obj) {
+						console.log(obj)
+						$scope.events = obj.data.events
+					}).catch(function () {
+						console.log("failed")
+					})
     	})
     $scope.modal.hide();
   };
+
+$scope.doRefresh = function () {
+	eventFactory.getAllEvents()
+		.then(function (obj) {
+			$scope.events = obj.data.events
+			console.log($scope.events)
+	}).catch(function () {
+		console.log("failed")
+	}).finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
+}
 
 });
 

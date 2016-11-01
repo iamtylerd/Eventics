@@ -11,16 +11,16 @@ const RedisStore = require('connect-redis')(session)
 
 const port = process.env.PORT || 3000;
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/eventics'
-const URL = 'http://localhost:3000'
+
 
 
 app.locals.user = {email: 'nothing@nothing.com'}
 app.locals.body = {}
 
 app.use((req, res, next) => {
- res.header("Access-Control-Allow-Origin", `${URL}`);
- res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
- res.header("Access-Control-Allow-Headers", "X-Custom-Header");
+ res.header("Access-Control-Allow-Origin", '*');
+ // res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+ // res.header("Access-Control-Allow-Headers", "X-Custom-Header");
  next();
 });
 

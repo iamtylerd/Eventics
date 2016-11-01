@@ -1,0 +1,12 @@
+<div ng-include="'partials/nav.html'"></div>
+<div class="eventContainer">
+	<h2>{{event.eventName}}</h2>
+	<div class="row photoContainer">
+		<div class="col s12 m6 l4 singlePhoto" ng-repeat="photo in photos | filter: searchText.search">
+			<div class="hoverDiv">Click to Download</div>
+			<a href={{photo.imageUrl}} target="_blank"><img ng-src="{{photo.imageUrl}}"></a>
+			<p class="userName">Posted by: </p><h5>{{photo.userName}}</h5>
+		</div>
+	</div>
+	<button class="btn" ng-click="getMorePhotos(event._id)">View More Photos</button>
+</div>

@@ -58,3 +58,11 @@ module.exports.create = (req, res, err) => {
       .then((obj) => res.send(obj))
       .catch(err)
 }
+
+module.exports.destroy = (req, res, err) => {
+  console.log(req.session)
+  req.session.destroy((err) => {
+      if (err) throw err
+        res.json("Logout")
+    })
+}

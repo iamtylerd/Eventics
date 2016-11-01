@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ionic', 'ngCordova'])
+var app = angular.module('app', ['ionic', 'ngCordova', 'ngStorage', 'jett.ionic.filter.bar'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -16,7 +16,13 @@ var app = angular.module('app', ['ionic', 'ngCordova'])
     }
   });
 })
-
+.run(($rootScope, $location, userFactory) => {
+    $rootScope.$on('$stateChangeStart', function (e, toState) {
+      if (toState.url !== '/login' && !userFactory.isLoggedIn()) {
+        $location.path('/login')
+      }
+    })
+  })
 app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
 
 
@@ -34,14 +40,14 @@ app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
   // Each state's controller can be found in controllers.js
   $stateProvider
   .state('index',{
-      url:'/',
+      url:'/login',
       templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl',
   })
   .state('home',{
       url:'/home',
       templateUrl: 'templates/home.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
   })
   .state('fail',{
       url:'/404',
@@ -53,6 +59,11 @@ app.constant('hostedServer', 'https://eventics.herokuapp.com/api')
       templateUrl: 'templates/event.html',
       controller: 'EventCtrl'
   })
-  $urlRouterProvider.otherwise('/');
+  .state('user', {
+      url:'/user/:id',
+      templateUrl: 'templates/user.html',
+      controller: 'UserCtrl'
+  })
+  $urlRouterProvider.otherwise('/home');
 
 });
