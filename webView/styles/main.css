@@ -1,3 +1,25 @@
+body {
+  font-family: 'Source Sans Pro', sans-serif; }
+
+.nav-wrapper {
+  background-color: #FFF0A5; }
+  .nav-wrapper .brand-logo {
+    color: #468966; }
+  .nav-wrapper .input-field i {
+    color: #468966; }
+
+.cardContainer {
+  background: #eee;
+  color: #888;
+  text-decoration: none;
+  box-shadow: -5px -5px 0 #ddd inset; }
+
+.cardContainer:hover {
+  color: #088;
+  background: #ddd;
+  box-shadow: 5px 5px 0 #ccc inset;
+  text-shadow: 1px 1px 0 #fff; }
+
 .eventContainer {
   padding-bottom: 4rem; }
 
@@ -28,3 +50,11 @@
 .userName {
   display: inline;
   font-size: 0.75rem; }
+
+.morePhotos {
+  background-color: #FFF0A5;
+  color: #468966; }
+
+.morePhotos:hover {
+  background-color: #468966;
+  color: #FFF0A5; }

@@ -1,3 +1,45 @@
+$green: #468966;
+$beige: #FFF0A5;
+$orange: #FFB03B;
+$lightRed: #B64926;
+$darkRed: #8E2800;
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+//Nav
+
+.nav-wrapper {
+	background-color: $beige;
+	.brand-logo {
+		color: $green;
+	}
+	.input-field {
+		i {
+			color: $green;
+		}
+	}
+}
+
+//Home
+
+.cardContainer {
+	background: #eee;
+  color:#888;
+  text-decoration:none;
+  box-shadow:-5px -5px 0 #ddd inset;
+}
+
+.cardContainer:hover {
+ 	color:#088;
+  background:#ddd;
+  box-shadow:5px 5px 0 #ccc inset;
+  text-shadow:1px 1px 0 #fff;
+}
+
+//Single Event View
+
 .eventContainer {
 	padding-bottom: 4rem;
 }
@@ -38,8 +80,17 @@
 	}
 }
 
-
 .userName {
 	display: inline;
 	font-size: 0.75rem;
+}
+
+.morePhotos {
+	background-color: $beige;
+	color: $green;
+}
+
+.morePhotos:hover {
+	background-color: $green;
+	color: $beige;
 }
