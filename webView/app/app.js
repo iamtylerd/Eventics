@@ -1,6 +1,6 @@
 "use strict";
 
-const app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngMdIcons' ])
+const app = angular.module('app', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngMdIcons'])
 .constant('hostedServer', 'https://eventics.herokuapp.com/api');
 // .constant('hostedServer', 'http://localhost:3000/api')
 

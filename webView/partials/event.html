@@ -8,5 +8,9 @@
 			<p class="userName">Posted by: </p><h5>{{photo.userName}}</h5>
 		</div>
 	</div>
-	<button class="btn" ng-click="getMorePhotos(event._id)">View More Photos</button>
+	<button class="btn morePhotos" ng-click="getMorePhotos(event._id)">View More Photos</button>
 </div>
+<div class="slideshow" ng-show="viewSlideShow">
+	<img class="singleImageSlideshow responsive-img" ng-repeat="slide in slides" ng-if="isCurrentSlideIndex($index)" ng-src="{{slide}}"/>
+</div>
+<button class="btn" ng-click="openSlideshow($event)">Start Slideshow</button>

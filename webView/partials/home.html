@@ -1,8 +1,6 @@
 <div ng-include="'partials/nav.html'"></div>
-<h2>HOME</h2>
-
 <div class="eventContainer row" >
-        <div class="col s4 m4 l4" ng-repeat="event in events | filter: searchText.search">
+        <div class="col s12 m6 l4 cardContainer" ng-repeat="event in events | filter: searchText.search">
           <div class="card" ng-click="viewEvent(event)">
             <div class="card-image">
               <img ng-src={{event.thumbnail}}>
