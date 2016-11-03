@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', function($ionicFilterBar, $window, $localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
+app.controller('HomeCtrl', function($cordovaToast, $ionicFilterBar, $window, $localStorage, $ionicModal, $scope, $http, $rootScope, $location, hostedServer, userFactory, $cordovaFileTransfer, eventFactory) {
 
 
 eventFactory.getAllEvents()
@@ -27,8 +27,15 @@ $rootScope.logout = function () {
 	$http
 		.post(hostedServer + '/logout')
 		.then(function () {
-			console.log("Logout")
-			$location.url('/login')
+			$cordovaToast
+		    .show('Logged Out!', 'long', 'center')
+		    .then(function(success) {
+					$location.url('/login')
+		      // success
+		    }, function (error) {
+		      // error
+		    });
+
 		})
 }
 
@@ -45,18 +52,22 @@ $rootScope.logout = function () {
   });
 
   $scope.createEvent = function(newEvent) {
-    console.log(newEvent)
     $http
     	.post(hostedServer + '/event/create/new', newEvent)
     	.then(function (msg) {
-    		console.log("after post", msg)
     		eventFactory.getAllEvents()
 					.then(function (obj) {
-						console.log(obj)
-						$scope.events = obj.data.events
-					}).catch(function () {
-						console.log("failed")
-					})
+						$cordovaToast
+					    .show(`Created the event - ${msg.data.eventName}`, 'long', 'center')
+					    .then(function(success) {
+					      // success
+									$scope.events = obj.data.events
+								}).catch(function () {
+									console.log("failed")
+								})
+					    }, function (error) {
+					      // error
+					    });
     	})
     $scope.modal.hide();
   };

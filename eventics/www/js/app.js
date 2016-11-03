@@ -11,7 +11,6 @@ var app = angular.module('app', ['ionic', 'ngCordova', 'ngStorage', 'jett.ionic.
 
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
   });

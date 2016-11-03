@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($window, $scope, $ionicLoading, $http, $location, hostedServer, userFactory, $localStorage) {
+app.controller('LoginCtrl', function($cordovaToast, $window, $scope, $ionicLoading, $http, $location, hostedServer, userFactory, $localStorage) {
 
 $scope.loginHide = true;
 $scope.registerHide = true;
@@ -38,9 +38,17 @@ $scope.createUser = function () {
        	$http
 					.post(hostedServer + '/register', $scope.registerObj)
 					.then(function (obj) {
-						userFactory.set(obj.data)
-						$window.localStorage.setItem('loggedIn', true)
-						$location.url('/home')
+						var un = obj.data.userName
+						$cordovaToast
+					    .show(`Logged in as ${un}`, 'long', 'center')
+					    .then(function(success) {
+								userFactory.set(obj.data)
+								$window.localStorage.setItem('loggedIn', true)
+								$location.url('/home')
+					      // success
+					    }, function (error) {
+					      // error
+					    });
 					})
     });
   };
@@ -58,10 +66,18 @@ $scope.login = function () {
        	$http
 					.post(hostedServer + '/login', $scope.loginObj)
 						.then(function (obj) {
-							userFactory.set(obj.data)
-							$window.localStorage.setItem('loggedIn', true)
-							$location.url('/home')
-							console.log(obj)
+							var un = obj.data.userName
+							$cordovaToast
+						    .show(`Logged in as ${un}`, 'long', 'center')
+							    .then(function(success) {
+										userFactory.set(obj.data)
+										$window.localStorage.setItem('loggedIn', true)
+										$location.url('/home')
+										console.log(obj)
+							      // success
+							    }, function (error) {
+							      // error
+						    });
 		})
     });
   };

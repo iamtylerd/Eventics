@@ -1,12 +1,9 @@
 <ion-view view-title="Event">
 	<ion-nav-buttons side="left">
-		<button class="button button-light ion-chevron-left button-outline" ng-click="goHome()">Home</button>
+		<button class="button button-light ion-ios-home-outline btnColor" ng-click="goHome()">Home</button>
 	</ion-nav-buttons>
 	<ion-nav-buttons side="right">
-	 <button ng-click="takePhoto()" class="button button-outline button-light">Take a photo</button>
-    <button id="logout" class="button button-light button-outline" ng-click="logout()">
-      Logout
-    </button>
+	 <button ng-click="takePhoto()" class="button button-light btnColor ion-aperture">Take a photo</button>
   </ion-nav-buttons>
   <ion-content class="padding" on-swipe-left="takePhoto()">
   <ion-refresher
@@ -18,7 +15,9 @@
     	<div class="photoContainer row responsive-md">
 	    	<div class="photoGrid col" ng-repeat="photo in photos | orderBy: '-date'">
 	    		<div class="singlePhoto col col-center">
-	    			<img ng-src="{{photo.imageUrl}}">
+            <ion-scroll zooming="true" direction="xy" delegate-handle="zoom-pane" class="zoom-pane" min-zoom="1" scrollbar-x="false" scrollbar-y="false">
+	    			  <img ng-src="{{photo.imageUrl}}">
+            </ion-scroll>
 	    			<h2 ng-click="getUserPhotos(photo.userId)">{{photo.userName}}</h2>
 	    		</div>
 	    	</div>
